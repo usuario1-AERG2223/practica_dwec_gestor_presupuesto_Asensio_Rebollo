@@ -26,18 +26,28 @@ function mostrarPresupuesto() {
 function CrearGasto(descripcion,valor) {
     // TODO
         // Verifica que descripcion sea una cadena y valor sea un número no negativo
-        if (typeof descripcion === "string" && typeof valor === "number" && valor >= 0.0) {
+        if (typeof descripcion === "string" && typeof valor === "number" && valor >= 0) {
             this.descripcion = descripcion;
             this.valor = valor;
         } else {
             this.descripcion = "";
-            this.valor = 0.0;
-            //console.error("Parámetros incorrectos: la descripción debe ser una cadena y el valor debe ser un número no negativo.");
+            this.valor = 0;
         }
+        this.mostrarGasto = function() {
+            return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
+        }
+        this.actualizarDescripcion = function(nuevaDescripcion) {
+            if (typeof descripcion === "string"){
+                this.descripcion = nuevaDescripcion;
+            }
+            else
+            this.descripcion = "";   
+        }
+
     }
-    function mostrarGasto() {
-        console.log(`Gasto correspondiente a ${CrearGasto.descripcion} ${CrearGasto.valor} €`);
-    }
+           
+    
+    
 
     
     
