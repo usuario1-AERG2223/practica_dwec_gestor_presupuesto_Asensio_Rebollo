@@ -29,12 +29,12 @@ function CrearGasto(descripcion,valor) {
         if (typeof descripcion === "string" && typeof valor === "number" && valor >= 0) {
             this.descripcion = descripcion;
             this.valor = valor;
-        } else {
+        } else if (typeof valor != "number") {
             this.descripcion = "";
             this.valor = 0;
         }
         this.mostrarGasto = function() {
-            return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
+            return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;    
         }
         this.actualizarDescripcion = function(nuevaDescripcion) {
             if (typeof descripcion === "string"){
@@ -42,6 +42,13 @@ function CrearGasto(descripcion,valor) {
             }
             else
             this.descripcion = "";   
+        }
+        this.actualizarValor = function(nuevoValor) {
+            if (typeof valor === "number" && valor >=0){
+                this.valor = nuevoValor;
+            }
+            else
+            this.valor = valor;   
         }
 
     }
