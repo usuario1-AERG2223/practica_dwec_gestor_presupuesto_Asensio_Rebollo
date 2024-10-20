@@ -1,19 +1,11 @@
 // TODO: Crear las funciones, objetos y variables indicadas en el enunciado
-/*function mostrarPresupuesto() {
-    return `Tu presupuesto actual es de ${presupuesto} €`;
-}*/
-    
-
+  
 // TODO: Variable global
 let presupuesto;
 presupuesto = 0;
 
-
-
-
 function actualizarPresupuesto(presu) {
     // TODO
-
     if(isNaN(presu))
         return -1;
 
@@ -21,11 +13,8 @@ function actualizarPresupuesto(presu) {
         return -1;
 
     presupuesto = presu;
-    return presupuesto;
-    
-
+    return presupuesto;   
 }
-
 /*function mostrarPresupuesto(valorpresupuesto) {
     // TODO
     
@@ -34,12 +23,24 @@ function mostrarPresupuesto() {
     return `Tu presupuesto actual es de ${presupuesto} €`;
 }
 
-function CrearGasto(gasto) {
+function CrearGasto(descripcion,valor) {
     // TODO
-    
+        // Verifica que descripcion sea una cadena y valor sea un número no negativo
+        if (typeof descripcion === "string" && typeof valor === "number" && valor >= 0.0) {
+            this.descripcion = descripcion;
+            this.valor = valor;
+        } else {
+            this.descripcion = "";
+            this.valor = 0.0;
+            //console.error("Parámetros incorrectos: la descripción debe ser una cadena y el valor debe ser un número no negativo.");
+        }
+    }
+    function mostrarGasto() {
+        console.log(`Gasto correspondiente a ${CrearGasto.descripcion} ${CrearGasto.valor} €`);
+    }
 
     
-    }
+    
 
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
