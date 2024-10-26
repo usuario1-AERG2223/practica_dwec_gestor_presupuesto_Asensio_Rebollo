@@ -3,7 +3,7 @@
 // TODO: Variable global
 let presupuesto;
 presupuesto = 0;
-
+//Funcion actualizarPresupuesto
 function actualizarPresupuesto(presu) {
     // TODO
     if(isNaN(presu))
@@ -15,23 +15,22 @@ function actualizarPresupuesto(presu) {
     presupuesto = presu;
     return presupuesto;   
 }
-/*function mostrarPresupuesto(valorpresupuesto) {
-    // TODO
-    
-}*/
+
 //Funcion mostrarPresupuesto
 function mostrarPresupuesto() {
     return `Tu presupuesto actual es de ${presupuesto} €`;
 }
-
+//Función CrearGasto
 function CrearGasto(descripcion,valor) {
     // TODO
         // Verifica que descripcion sea una cadena y valor sea un número no negativo
         // ver issue para modificar linea
         if (typeof descripcion === "string")  {
             this.descripcion = descripcion;
-        }else
+        }
+        else
         this.descripcion = '';
+
         if (typeof valor === "number" && valor >= 0) {
                 this.valor =valor ;
         }
@@ -39,7 +38,6 @@ function CrearGasto(descripcion,valor) {
                 this.valor =0;
         }
         
-       
     //Funcion MostrarGasto
         this.mostrarGasto = function() {
             return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;    
