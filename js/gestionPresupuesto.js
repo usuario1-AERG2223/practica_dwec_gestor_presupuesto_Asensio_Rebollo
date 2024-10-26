@@ -19,6 +19,7 @@ function actualizarPresupuesto(presu) {
     // TODO
     
 }*/
+//Funcion mostrarPresupuesto
 function mostrarPresupuesto() {
     return `Tu presupuesto actual es de ${presupuesto} €`;
 }
@@ -26,16 +27,23 @@ function mostrarPresupuesto() {
 function CrearGasto(descripcion,valor) {
     // TODO
         // Verifica que descripcion sea una cadena y valor sea un número no negativo
-        if (typeof descripcion === "string" && typeof valor === "number" && valor >= 0) {
+        // ver issue para modificar linea
+        if (typeof descripcion === "string")  {
             this.descripcion = descripcion;
-            this.valor = valor;
-        } else if (typeof valor != "number") {
-            this.descripcion = "";
-            this.valor = 0;
+        }else
+        this.descripcion = '';
+        if (typeof valor === "number" && valor >= 0) {
+                this.valor =valor ;
         }
+        else  {  
+                this.valor =0;
+        }
+       
+    //Funcion MostrarGasto
         this.mostrarGasto = function() {
             return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;    
         }
+    //Funcion actualizarDescripcion
         this.actualizarDescripcion = function(nuevaDescripcion) {
             if (typeof descripcion === "string"){
                 this.descripcion = nuevaDescripcion;
@@ -48,17 +56,9 @@ function CrearGasto(descripcion,valor) {
                 this.valor = nuevoValor;
             }
             else
-            this.valor = valor;   
+            this.valor = "";   
         }
-
     }
-           
-    
-    
-
-    
-    
-
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
@@ -67,4 +67,5 @@ export   {
     mostrarPresupuesto,
     actualizarPresupuesto,
     CrearGasto
-}
+    }
+
