@@ -3,7 +3,7 @@
 // TODO: Variable global
 let presupuesto;
 presupuesto = 0;
-let gastos = [];//Variable local gastos
+let gastos = [];//Variable global gastos
 
 let idGasto = 0;
 
@@ -46,7 +46,7 @@ function calcularBalance(){
 
 }
 //Función CrearGasto
-function CrearGasto(descripcion,valor,fecha,etiquetas) {
+function CrearGasto(descripcion,valor,fecha,...etiquetas) {
     // TODO
         // Verifica que descripcion sea una cadena y valor sea un número no negativo
         // ver issue para modificar linea
@@ -62,6 +62,19 @@ function CrearGasto(descripcion,valor,fecha,etiquetas) {
         else  {  
                 this.valor =0;
         }
+        if (isNaN(Date.parse(fecha))) {
+            this.fecha = Date.now();
+        } else {
+            this.fecha = Date.parse(fecha);
+        }
+
+        if(Array(etiquetas)) {
+            this.etiquetas = etiquetas;
+        }
+        else 
+        this.etiquetas= [];
+        
+
         
     //Funcion MostrarGasto
         this.mostrarGasto = function() {
