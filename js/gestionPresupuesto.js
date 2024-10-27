@@ -3,7 +3,8 @@
 // TODO: Variable global
 let presupuesto;
 presupuesto = 0;
-let gastos = [];
+let gastos = [];//Variable local gastos
+
 let idGasto = 0;
 
 //Funcion actualizarPresupuesto
@@ -23,10 +24,11 @@ function actualizarPresupuesto(presu) {
 function mostrarPresupuesto() {
     return `Tu presupuesto actual es de ${presupuesto} €`;
 }
-//Funcion listarGastos
+//Funcion listarGastos.Devuelve la variable gastos
 function listarGastos(){
-return `Los gastos son: ${gastos}`;
-}
+   return gastos;
+   }
+
 //Funcion anyadirGasto
 function anyadirGasto(){
 
@@ -44,7 +46,7 @@ function calcularBalance(){
 
 }
 //Función CrearGasto
-function CrearGasto(descripcion,valor) {
+function CrearGasto(descripcion,valor,fecha,etiquetas) {
     // TODO
         // Verifica que descripcion sea una cadena y valor sea un número no negativo
         // ver issue para modificar linea
