@@ -4,7 +4,6 @@
 let presupuesto;
 presupuesto = 0;
 let gastos = [];//Variable global gastos
-
 let idGasto = 0;
 
 //Funcion actualizarPresupuesto
@@ -30,8 +29,11 @@ function listarGastos(){
    }
 
 //Funcion anyadirGasto
-function anyadirGasto(){
+function anyadirGasto(gasto){
 
+    gasto.id = idGasto;//Añadir a array gastos, la propiedad idGastos
+    idGasto++;//Incrementamos el id el siguiente gasto
+    gastos.push(gasto);//Añado el gasto al array gastos
 }
 //Funcion borrarGasto
 function borrarGasto(){
@@ -62,6 +64,7 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         else  {  
                 this.valor =0;
         }
+        //Se comprueba si fecha tiene un formato valido de date.parse
         if (isNaN(Date.parse(fecha))) {
             this.fecha = Date.now();
         } else {
@@ -73,8 +76,6 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         }
         else 
         this.etiquetas= [];
-        
-
         
     //Funcion MostrarGasto
         this.mostrarGasto = function() {
