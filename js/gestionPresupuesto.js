@@ -36,15 +36,21 @@ function anyadirGasto(gasto){
     gastos.push(gasto);//Añado el gasto al array gastos
 }
 //Funcion borrarGasto
-function borrarGasto(id){
-   gastos = gastos.filter(gasto =>gasto.id !== id);//Se crea un nuevo array con los objetos "gasto",cuyo id quen no coincida con elidGasto.   
+function borrarGasto(idGasto){
+   gastos = gastos.filter(gasto =>gasto.id !== idGasto);//Se crea un nuevo array con los objetos "gasto",cuyo id quen no coincida con elidGasto.   
 }
 
 
 //Funcion calcularTotalGastos
+//Usamos reduce del objeto gastos, para que nos devuelva un solo valor.Le pasamos un acumulador y el valor.Valor inicial 0
 function calcularTotalGastos(){
-
+    return gastos.reduce(function(acc,gasto){
+         return acc + gasto.valor;
+    
+    }, 0); 
+    
 }
+
 //Funcion calcularBalance
 function calcularBalance(){
 
