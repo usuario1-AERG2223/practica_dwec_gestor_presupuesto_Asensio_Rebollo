@@ -95,24 +95,45 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
             else
             this.descripcion = "";   
         }
+    //Funcion actualizarValor
         this.actualizarValor = function(nuevoValor) {
             if (typeof nuevoValor === "number" && nuevoValor >= 0) {
                 this.valor =nuevoValor; 
             }       
         }
+     //Funcion actualizarFecha  
         this.actualizarFecha = function(nuevaFecha){
            let fecha = Date.parse(nuevaFecha).toString();//esta fecha es timestamp convertida a String
            if (!isNaN(fecha)) {
             this.fecha = fecha;
         }
-        
-        
-        
-    }
+        //No es correcto el codigo
+        this.anyadirEtiquetas = function(...nuevasEtiquetas){
+            nuevasEtiquetas.forEach(etiqueta => {
+                if(!this.etiquetas.includes(etiqueta)) {
+                    this.etiquetas.push(etiqueta);
+                }
+            });   
+        } 
+        //Falta rellenar
+        this.borrarEtiquetas = function(...borraEtiquetas){
 
+        }  
+    }
     //Funcion mostrarGastoCompleto
     this.mostrarGastoCompleto = function(){
-        return
+        let fechaGastoCompleto = new Date(this.fecha).toISOString();//Convertimos la fecha en string
+        let etiquetasTexto = "";//Iniciamos las etuiquetas a ningun valor
+        //Si las etiquetas tienen caracteres...
+        if (this.etiquetas.length > 0) {
+            //usa map para formatear cada una con un guion y un salto de línea, luego las une en una sola cadena.
+            etiquetasTexto = this.etiquetas.map(etiqueta => ` ${etiqueta}` + '\n');
+            return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\nFecha: ${fechaGastoCompleto}\nEtiquetas:\n${etiquetasTexto}`;
+
+        }
+        
+
+        return{ descripcion: descripcion,valor: valor,fecha: fecha,etiquetas: etiquetas }
     }
         
     }
