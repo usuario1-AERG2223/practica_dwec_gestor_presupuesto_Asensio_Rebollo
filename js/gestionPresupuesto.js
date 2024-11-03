@@ -76,11 +76,11 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         } else {
             this.fecha = Date.parse(fecha);
         }
-
+//Si etiquetas es un array,se guarda como un array
         if(Array(etiquetas)) {
             this.etiquetas = etiquetas;
         }
-        else 
+        else //sino devuelve un array vacio
         this.etiquetas= [];
         
     //Funcion MostrarGasto
@@ -100,6 +100,20 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
                 this.valor =nuevoValor; 
             }       
         }
+        this.actualizarFecha = function(nuevaFecha){
+           let fecha = Date.parse(nuevaFecha).toString();//esta fecha es timestamp convertida a String
+           if (!isNaN(fecha)) {
+            this.fecha = fecha;
+        }
+        
+        
+        
+    }
+
+    //Funcion mostrarGastoCompleto
+    this.mostrarGastoCompleto = function(){
+        return
+    }
         
     }
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
