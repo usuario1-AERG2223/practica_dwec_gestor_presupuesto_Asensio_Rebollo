@@ -36,9 +36,11 @@ function anyadirGasto(gasto){
     gastos.push(gasto);//Añado el gasto al array gastos
 }
 //Funcion borrarGasto
-function borrarGasto(){
-
+function borrarGasto(id){
+   gastos = gastos.filter(gasto =>gasto.id !== id);//Se crea un nuevo array con los objetos "gasto",cuyo id quen no coincida con elidGasto.   
 }
+
+
 //Funcion calcularTotalGastos
 function calcularTotalGastos(){
 
