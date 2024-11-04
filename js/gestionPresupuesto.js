@@ -103,10 +103,11 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         }
      //Funcion actualizarFecha  
         this.actualizarFecha = function(nuevaFecha){
-           let fecha = Date.parse(nuevaFecha).toString();//esta fecha es timestamp convertida a String
+           let fecha = Date.parse(nuevaFecha).toString();//esta fecha es timestamp convertida a String.NO FUNCION CON .toISOString
            if (!isNaN(fecha)) {
             this.fecha = fecha;
         }
+    }
         //No es correcto el codigo
         this.anyadirEtiquetas = function(...nuevasEtiquetas){
             nuevasEtiquetas.forEach(etiqueta => {
@@ -121,7 +122,7 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         }  
     }
     //Funcion mostrarGastoCompleto
-    this.mostrarGastoCompleto = function(){
+   /* this.mostrarGastoCompleto = function(){
         let fechaGastoCompleto = new Date(this.fecha).toISOString();//Convertimos la fecha en string
         let etiquetasTexto = "";//Iniciamos las etuiquetas a ningun valor
         //Si las etiquetas tienen caracteres...
@@ -131,12 +132,10 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
             return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\nFecha: ${fechaGastoCompleto}\nEtiquetas:\n${etiquetasTexto}`;
 
         }
-        
-
         return{ descripcion: descripcion,valor: valor,fecha: fecha,etiquetas: etiquetas }
-    }
+    }*/
         
-    }
+    
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
 // Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
