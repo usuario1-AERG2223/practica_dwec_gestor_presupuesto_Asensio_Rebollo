@@ -84,11 +84,11 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         this.etiquetas= [];
         
     //Funcion MostrarGasto
-        this.mostrarGasto = function() {
+     this.mostrarGasto = function() {
             return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;    
         }
     //Funcion actualizarDescripcion
-        this.actualizarDescripcion = function(nuevaDescripcion) {
+     this.actualizarDescripcion = function(nuevaDescripcion) {
             if (typeof descripcion === "string"){
                 this.descripcion = nuevaDescripcion;
             }
@@ -96,20 +96,20 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
             this.descripcion = "";   
         }
     //Funcion actualizarValor
-        this.actualizarValor = function(nuevoValor) {
+    this.actualizarValor = function(nuevoValor) {
             if (typeof nuevoValor === "number" && nuevoValor >= 0) {
                 this.valor =nuevoValor; 
             }       
         }
-     //Funcion actualizarFecha  
-        this.actualizarFecha = function(nuevaFecha){
-           let fecha = Date.parse(nuevaFecha).toString();//esta fecha es timestamp convertida a String.NO FUNCION CON .toISOString
+     //Método actualizarFecha  
+    this.actualizarFecha = function(nuevaFecha){
+           let fecha = new Date(nuevaFecha).toISOString();//convierto fecha a Objeto para poder usar .toISOString
            if (!isNaN(fecha)) {
             this.fecha = fecha;
         }
     }
-        //No es correcto el codigo
-        this.anyadirEtiquetas = function(...nuevasEtiquetas){
+        //Método AnyadirFecha
+    this.anyadirEtiquetas = function(...nuevasEtiquetas){
             nuevasEtiquetas.forEach(etiqueta => {
                 if(!this.etiquetas.includes(etiqueta)) {
                     this.etiquetas.push(etiqueta);
@@ -117,22 +117,31 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
             });   
         } 
         //Falta rellenar
-        this.borrarEtiquetas = function(...borraEtiquetas){
+    this.borrarEtiquetas = function(...borraEtiquetas){
+        for (var i = 0; i < borraEtiquetas.length; i++) { 
+            var etiqueta = borraEtiquetas[i]; //almacena la etiqueta en la variable etiqueta
+            var posicion = this.etiquetas.indexOf(etiqueta);//devuelve la posicion de la etiqueta.Si no la encuentra devuelve -1
+             if (posicion !== -1) {
+                 this.etiquetas.splice(posicion, 1);//Elimina la etiqueta por medio de splice.Elimina la etiqueta en la posicion indicada
+                 }
+         }
 
-        }  
-    }
-    //Funcion mostrarGastoCompleto
-   /* this.mostrarGastoCompleto = function(){
-        let fechaGastoCompleto = new Date(this.fecha).toISOString();//Convertimos la fecha en string
-        let etiquetasTexto = "";//Iniciamos las etuiquetas a ningun valor
+    } 
+} 
+
+    //Método mostrarGastoCompleto
+    /*this.mostrarGastoCompleto = function() {
+        const fechaGastoCompleto = new Date(this.fecha).toISOString();//Convertimos la fecha en string
+        let etiquetasTexto = "";//Iniciamos las etiquetas a ningun valor
         //Si las etiquetas tienen caracteres...
         if (this.etiquetas.length > 0) {
-            //usa map para formatear cada una con un guion y un salto de línea, luego las une en una sola cadena.
-            etiquetasTexto = this.etiquetas.map(etiqueta => ` ${etiqueta}` + '\n');
-            return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\nFecha: ${fechaGastoCompleto}\nEtiquetas:\n${etiquetasTexto}`;
-
+            etiquetasTexto = "";
+            //uso un bucle para recorrer las etiquetas cada una con un guion y un salto de línea.
+            for (var i = 0; i < this.etiquetas.length; i++) { 
+                etiquetasTexto += ` - ${this.etiquetas[i]}\n`;
+             }  
         }
-        return{ descripcion: descripcion,valor: valor,fecha: fecha,etiquetas: etiquetas }
+    return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\nFecha: ${fechaGastoCompleto}\nEtiquetas:\n${etiquetasTexto}`;    
     }*/
         
     
