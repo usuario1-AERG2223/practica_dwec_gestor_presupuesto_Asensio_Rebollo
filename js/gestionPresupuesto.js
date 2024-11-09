@@ -56,6 +56,7 @@ function calcularBalance(){
 //Función CrearGasto
 function CrearGasto(descripcion,valor,fecha,...etiquetas) {
     // TODO
+        //Propiedades
         // Verifica que descripcion sea una cadena y valor sea un número no negativo
         // ver issue para modificar linea
         if (typeof descripcion === "string")  {
@@ -70,7 +71,7 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         else  {  
                 this.valor =0;
         }
-        //Se comprueba si fecha tiene un formato valido de date.parse
+        //Se comprueba si fecha tiene un formato valido numérico con date.parse
         if (isNaN(Date.parse(fecha))) {
             this.fecha = Date.now();
         } else {
@@ -84,38 +85,38 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         this.etiquetas= [];
         
     //Funcion MostrarGasto
-     this.mostrarGasto = function() {
+    this.mostrarGasto = function() {
             return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;    
-        }
+    }
     //Funcion actualizarDescripcion
-     this.actualizarDescripcion = function(nuevaDescripcion) {
+    this.actualizarDescripcion = function(nuevaDescripcion) {
             if (typeof descripcion === "string"){
                 this.descripcion = nuevaDescripcion;
             }
             else
             this.descripcion = "";   
-        }
+    }
     //Funcion actualizarValor
     this.actualizarValor = function(nuevoValor) {
             if (typeof nuevoValor === "number" && nuevoValor >= 0) {
                 this.valor =nuevoValor; 
             }       
-        }
+    }
      //Método actualizarFecha  
     this.actualizarFecha = function(nuevaFecha){
-           let fecha = new Date(nuevaFecha).toISOString();//convierto fecha a Objeto para poder usar .toISOString
-           if (!isNaN(fecha)) {
-            this.fecha = fecha;
-        }
+           let fecha = Date.parse(nuevaFecha);//Convertimos la fecha a numero para comprobar que sea valida
+           if (fecha) {
+            this.fecha = fecha;       
+        }   
     }
-        //Método AnyadirFecha
+        //Método AnyadirEtiquetas
     this.anyadirEtiquetas = function(...nuevasEtiquetas){
             nuevasEtiquetas.forEach(etiqueta => {
                 if(!this.etiquetas.includes(etiqueta)) {
                     this.etiquetas.push(etiqueta);
                 }
-            });   
-        } 
+            })   
+    } 
         //Falta rellenar
     this.borrarEtiquetas = function(...borraEtiquetas){
         for (var i = 0; i < borraEtiquetas.length; i++) { 
@@ -125,25 +126,18 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
                  this.etiquetas.splice(posicion, 1);//Elimina la etiqueta por medio de splice.Elimina la etiqueta en la posicion indicada
                  }
          }
-
+    }
+     //Método mostrarGastoCompleto
+    this.mostrarGastoCompleto = function() {
+        let texto = `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.
+        Fecha: ${new Date(this.fecha)} 
+        Etiquetas: \n`
+            for (let etiqueta of this.etiquetas) { 
+                texto += `- ${etiquetas}\n`;
+             } 
+     return texto; 
     } 
-} 
-
-    //Método mostrarGastoCompleto
-    /*this.mostrarGastoCompleto = function() {
-        const fechaGastoCompleto = new Date(this.fecha).toISOString();//Convertimos la fecha en string
-        let etiquetasTexto = "";//Iniciamos las etiquetas a ningun valor
-        //Si las etiquetas tienen caracteres...
-        if (this.etiquetas.length > 0) {
-            etiquetasTexto = "";
-            //uso un bucle para recorrer las etiquetas cada una con un guion y un salto de línea.
-            for (var i = 0; i < this.etiquetas.length; i++) { 
-                etiquetasTexto += ` - ${this.etiquetas[i]}\n`;
-             }  
-        }
-    return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\nFecha: ${fechaGastoCompleto}\nEtiquetas:\n${etiquetasTexto}`;    
-    }*/
-        
+}    
     
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
