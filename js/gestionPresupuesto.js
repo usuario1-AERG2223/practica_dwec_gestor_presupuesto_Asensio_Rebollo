@@ -127,16 +127,18 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
                  }
          }
     }
-     //Método mostrarGastoCompleto
-    this.mostrarGastoCompleto = function() {
-        let texto = `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.
-        Fecha: ${new Date(this.fecha)} 
-        Etiquetas: \n`
-            for (let etiqueta of this.etiquetas) { 
-                texto += `- ${etiquetas}\n`;
+   
+     this.mostrarGastoCompleto = function() { 
+        const fechaLegible =new Date(this.fecha).toLocaleString();
+         let etiquetasTexto = "No hay etiquetas";
+         if (this.etiquetas.length > 0) { 
+            etiquetasTexto = ""; 
+            for (const etiqueta of this.etiquetas) { 
+                etiquetasTexto += ` - ${etiqueta}\n`;
              } 
-     return texto; 
-    } 
+        } 
+        return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\n Fecha: ${fechaLegible}\n Etiquetas:\n ${etiquetasTexto}`; 
+    };
 }    
     
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
@@ -150,6 +152,8 @@ export   {
     anyadirGasto,
     borrarGasto,
     calcularTotalGastos,
-    calcularBalance
+    calcularBalance,
+    filtrarGastos,
+    agruparGastos
     }
 
