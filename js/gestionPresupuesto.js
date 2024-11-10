@@ -53,6 +53,26 @@ function calcularBalance(){
    let balance = presupuesto - TotalGastos;// Hacemos la diferencia entre el presupuesto y el total de gastos
    return balance;     
 }
+
+//Función filtrarGastos
+function filtrarGastos(parametro){
+// parametro fechaDesde
+// parametro fechaHasta
+// parametro valorMinimo
+// parametro valorMaximo
+// parametro descripcioContiene
+// parametro etiquetasTiene
+}
+
+//Función agruparGastos
+function agruparGastos(periodo,etiquetas,fechaDesde,fechaHasta){
+
+
+    return gastos.filter(function(gasto) {
+
+    });//devuelve un un subconjunto de gastos existentes(variable global gastos)
+}
+
 //Función CrearGasto
 function CrearGasto(descripcion,valor,fecha,...etiquetas) {
     // TODO
@@ -84,11 +104,11 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         else //sino devuelve un array vacio
         this.etiquetas= [];
         
-    //Funcion MostrarGasto
+    //Método MostrarGasto
     this.mostrarGasto = function() {
             return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;    
     }
-    //Funcion actualizarDescripcion
+    //Método actualizarDescripcion
     this.actualizarDescripcion = function(nuevaDescripcion) {
             if (typeof descripcion === "string"){
                 this.descripcion = nuevaDescripcion;
@@ -96,7 +116,7 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
             else
             this.descripcion = "";   
     }
-    //Funcion actualizarValor
+    //Método actualizarValor
     this.actualizarValor = function(nuevoValor) {
             if (typeof nuevoValor === "number" && nuevoValor >= 0) {
                 this.valor =nuevoValor; 
@@ -109,7 +129,7 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
             this.fecha = fecha;       
         }   
     }
-        //Método AnyadirEtiquetas
+    //Método AnyadirEtiquetas
     this.anyadirEtiquetas = function(...nuevasEtiquetas){
             nuevasEtiquetas.forEach(etiqueta => {
                 if(!this.etiquetas.includes(etiqueta)) {
@@ -117,7 +137,7 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
                 }
             })   
     } 
-        //Falta rellenar
+    //Método borrarEtiquetas
     this.borrarEtiquetas = function(...borraEtiquetas){
         for (var i = 0; i < borraEtiquetas.length; i++) { 
             var etiqueta = borraEtiquetas[i]; //almacena la etiqueta en la variable etiqueta
@@ -139,6 +159,25 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         } 
         return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\n Fecha: ${fechaLegible}\n Etiquetas:\n ${etiquetasTexto}`; 
     };
+
+    //Método obtenerPeriodoAgrupacion
+    this.obtenerPeriodoAgrupacion = function(periodo) {
+//this.fecha es un numero.Un timestamp.Para crear un objeto fecha debemos de pasar la fecha a string
+let fechaObjeto =new Date(this.fecha).toISOString();//Muestra el valor p.ej 2024-10-09
+
+//comprobamos los valores a devolver
+if(periodo == "mes")
+    return fechaObjeto.substr(0,7);// devuelve este valor 2024-10
+if(periodo == "dia")
+    return fechaObjeto.substr(0,10);// devuelve este valor 2024-10-09
+if(periodo == "anyo")
+    return fechaObjeto.substr(0,4);// devuelve este valor 2024
+
+    }
+
+
+
+    
 }    
     
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
