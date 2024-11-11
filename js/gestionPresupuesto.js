@@ -55,24 +55,50 @@ function calcularBalance(){
 }
 
 //Función filtrarGastos
-function filtrarGastos(parametro){
-// parametro fechaDesde
-// parametro fechaHasta
-// parametro valorMinimo
-// parametro valorMaximo
-// parametro descripcioContiene
-// parametro etiquetasTiene
+function filtrarGastos(parametros){
+// parametros.fechaDesde
+// parametros.fechaHasta
+// parametros.valorMinimo
+// parametros.valorMaximo
+// parametros.descripcioContiene
+// parametros.etiquetasTiene
+
+return gastos.filter(function(gasto) {
+    let resultado =true;
+    //gasto.fecha es un numero y fechadesde es un string
+if(gasto.fecha < Date.parse(parametros.fechaDesde)){
+    resultado =false;
+}
+
+return resultado;
+});//devuelve un un subconjunto de gastos existentes(variable global gastos)
+
 }
 
 //Función agruparGastos
 function agruparGastos(periodo,etiquetas,fechaDesde,fechaHasta){
+//se ha de crear una variable de tipo objeto
+    let paramFiltrado = {
+        fechaDesde: fechaDesde,
+        periodo: periodo,
+        etiquetas: etiquetas,
+        fechaHasta: fechaHasta
+    }
+    // se ha de llamar a la función filtrarGastos,pasandole un objeto paramFiltrado
+    let gastosFiltrados = filtrarGastos(paramFiltrado);
 
+    //agruparGastos es un objeto,con lo cual se ha de devolver un objeto
+    gastosFiltrados.reduce(function(acc,gasto){
+    //acc será el acumulador
+    //gasto elemento procesado,elemento del array gastosFiltrado
 
-    return gastos.filter(function(gasto) {
+    let periodoAgrup = gasto.obtenerPeriodoAgrupacion(periodo);
 
-    });//devuelve un un subconjunto de gastos existentes(variable global gastos)
+    acc[periodoAgrup]=acc[periodoAgrup] || 0;//en caso de que no exista el primer valor
+    acc[periodoAgrup] += gasto.valor;//acumula los gasto si hay alguno ya acumulado
+
+    }, {});
 }
-
 //Función CrearGasto
 function CrearGasto(descripcion,valor,fecha,...etiquetas) {
     // TODO
@@ -154,30 +180,27 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
          if (this.etiquetas.length > 0) { 
             etiquetasTexto = ""; 
             for (const etiqueta of this.etiquetas) { 
-                etiquetasTexto += ` - ${etiqueta}\n`;
+                etiquetasTexto += `- ${etiqueta}\n`; 
              } 
         } 
-        return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\n Fecha: ${fechaLegible}\n Etiquetas:\n ${etiquetasTexto}`; 
+         
+        return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\nFecha: ${fechaLegible}\nEtiquetas:\n${etiquetasTexto}`;
     };
 
     //Método obtenerPeriodoAgrupacion
     this.obtenerPeriodoAgrupacion = function(periodo) {
-//this.fecha es un numero.Un timestamp.Para crear un objeto fecha debemos de pasar la fecha a string
-let fechaObjeto =new Date(this.fecha).toISOString();//Muestra el valor p.ej 2024-10-09
+        //this.fecha es un numero.Un timestamp.Para crear un objeto fecha debemos de pasar la fecha a string
+        let fechaObjeto =new Date(this.fecha).toISOString();//Muestra el valor p.ej 2024-10-09
 
-//comprobamos los valores a devolver
-if(periodo == "mes")
-    return fechaObjeto.substr(0,7);// devuelve este valor 2024-10
-if(periodo == "dia")
-    return fechaObjeto.substr(0,10);// devuelve este valor 2024-10-09
-if(periodo == "anyo")
-    return fechaObjeto.substr(0,4);// devuelve este valor 2024
-
+        //comprobamos los valores a devolver
+        if(periodo == "mes")
+            return fechaObjeto.substr(0,7);// devuelve este valor "2024-10"
+        if(periodo == "dia")
+            return fechaObjeto.substr(0,10);// devuelve este valor "2024-10-09"
+        if(periodo == "anyo")
+            return fechaObjeto.substr(0,4);// devuelve este valor "2024"
     }
-
-
-
-    
+ 
 }    
     
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
